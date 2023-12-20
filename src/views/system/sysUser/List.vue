@@ -55,7 +55,7 @@
       <el-table-column prop="postName" label="岗位" width="100" />
       <el-table-column prop="deptName" label="部门" width="100" />
       <el-table-column label="所属角色" width="130">
-        <template v-slot="scope">
+        <template slot-scope="scope">
           <span v-for="item in scope.row.roleList" :key="item.id" style="margin-right: 10px;">{{ item.roleName }}</span>
         </template>
       </el-table-column>
@@ -173,9 +173,9 @@ export default {
     console.log('list created......')
     this.fetchData()
 
-    roleApi.findAll().then(response => {
-      this.roleList = response.data
-    })
+    // roleApi.findAll().then(response => {
+    //   this.roleList = response.data
+    // })
   },
 
   // 生命周期函数：内存准备完毕，页面渲染成功

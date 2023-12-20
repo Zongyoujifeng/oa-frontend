@@ -14,7 +14,7 @@
         <el-row style="display:flex">
           <el-button type="primary" icon="el-icon-search" size="mini" @click="fetchData()">搜索</el-button>
           <el-button icon="el-icon-refresh" size="mini" @click="resetData">重置</el-button>
-          <el-button type="success" icon="el-icon-plus" size="mini" @click="add">添 加</el-button>
+          <el-button type="success" icon="el-icon-plus" size="mini" :disabled="$hasBP('bnt.sysRole.add') === false" @click="add">添 加</el-button>
           <el-button type="danger" size="mini" @click="batchRemove()">批量删除</el-button>
         </el-row>
       </el-form>
@@ -48,7 +48,7 @@
         <template v-slot="scope">
           <el-button type="primary" icon="el-icon-edit" size="mini" title="修改" @click="edit(scope.row.id)" />
           <el-button type="danger" icon="el-icon-delete" size="mini" title="删除" @click="removeDataById(scope.row.id)" />
-          <el-button type="warning" icon="el-icon-baseball" size="mini" @click="showAssignAuth(scope.row)" title="分配权限"/>
+          <el-button type="warning" icon="el-icon-baseball" size="mini" title="分配权限" @click="showAssignAuth(scope.row)" />
         </template>
       </el-table-column>
     </el-table>
@@ -182,7 +182,11 @@ export default {
         this.$message.success(response.message || '删除成功')
       })
     },
-    edit(id) {
+    async edit(id) {
+      await (this.sysRole = {
+        roleName: '',
+        roleCode: ''
+      })
       this.dialogVisible = true
       this.fetchDataById(id)
     },
